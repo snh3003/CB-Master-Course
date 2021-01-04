@@ -38,7 +38,14 @@ int last_occ(vector<int> v, int n, int key){
 }
 
 int main(){
-    vector<int> v{1,2,5,8,8,8,8,10,12,15,20};
+    vector<int> v;
+    int n, ip;
+    cin>>n;
+    for(int i=0;i<n;i++){
+        cin>>ip;
+        v.push_back(ip);
+    }
+    sort(v.begin(), v.end());
     int size = v.size();
     int key;
     cin>>key;
