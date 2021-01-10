@@ -2,11 +2,11 @@
 using namespace std;
 
 int main(){
-    int n, ip;
+    int n, ip, ans = 0;
     cin>>n;
-    vector<int> v;
     for(int i=0;i<n;i++){
-        cin>>n;
-        v.push_back(ip);
+        cin>>ip;
+        ans = ans ^ ip;
     }
+    cout<<ans<<endl;
 }
