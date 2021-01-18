@@ -1,4 +1,6 @@
 #include<iostream>
+#define ll long long
+#define Max_size 1000000
 using namespace std;
 
 void prime_sieve(int n){
@@ -6,21 +8,21 @@ void prime_sieve(int n){
     //initially mark all the nos as not prime
     bool arr[1000000] = {0}; 
     //mark all odd nos as prime
-    for(int i=3; i<n; i+=2){
+    for(ll i=3; i<Max_size; i+=2){
         arr[i] = 1;
     }
     //check for all the odd nos
-    for(int j=3;j<n;j+=2){
+    for(ll j=3;j<Max_size;j+=2){
         if(arr[j]){ // arr[j] is prime
             //mark all its multiples as not prime
-            for(int k = j*j; k<n; k+=j){
+            for(ll k = j*j; k<Max_size; k+=j){
                 arr[k] = 0;
             }
         }
     }
     arr[2] = 1;
     //print nos that are prime
-    for(int i=0;i<n;i++){
+    for(ll i=0;i<n;i++){
         if(arr[i]){
             cout<<i<<" ";
         }
@@ -28,7 +30,7 @@ void prime_sieve(int n){
 }
 
 int main(){
-    int n;
+    ll n;
     cin>>n;
     // cout<<n;
     prime_sieve(n);

@@ -28,7 +28,6 @@ vector<int> prime_sieve(){
     // }
     vector<int> primes;
     // initialize 2 as 1, 1 and 0 as 0
-    primes.push_back(0);
     primes.push_back(2);
     // append all the true values into vector array
     
@@ -41,12 +40,40 @@ vector<int> prime_sieve(){
     return primes;
 }
 
+int count_divisors(int n, vector<int> &primes){
+    int ans = 1;
+    int i = 0;
+    int p = primes[0];
+    //if n is not prime then it must have one factor that must be equal to sqrt(p)
+    while(p*p<=n){ 
+        if(n%p==0){
+            int count = 0;
+            while(n%p==0){
+                n = n/p;
+                count++;
+            }
+            ans = ans*(count+1);
+        }
+        // go to the next position
+        i++;
+        p = primes[i];
+    }
+    if(n!=1){
+        ans = ans*2;
+    }
+    return ans;
+}
+
 int main(){
-    int n;
-    cin>>n;
     vector<int> v = prime_sieve();
-    // for(int i=0; i<n; i++){
-    //     cout<<v[i]<<" ";
-    // }
-    cout<<v[n];
+    int t;
+    cin>>t;
+    for(int i=0; i<t; i++){
+        int ip;
+        cin>>ip;
+        int divisors = count_divisors(ip, v);
+        cout<<divisors<<endl;    
+    }
+    
+    
 }
