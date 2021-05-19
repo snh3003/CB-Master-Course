@@ -11,24 +11,34 @@ class node{
         }
 };
 
-void insert(node *&head, int data){
-    if(head==NULL){
-        head = new node(data);
-        return;
-    }
-    node *n = new node(data);
+void insertHead(node *&head, int data){
+    
+    node*n = new node(data);
+    node*temp = head;
+
     n->next = head;
+
+    if(temp!=NULL){
+        while(temp->next!=head){
+            temp = temp->next;
+        }
+        temp->next = n;
+    }else{
+        n->next = n;
+    }
     head = n;
 }
 
-void print(node *head){
+void printList(node *head){
     node *temp = head;
-    while(temp!=NULL){
+    while(temp->next!=head){
         temp = temp->next;
-        cout<<temp->data<<"->";
+        cout<<temp->data<<" -> ";
     }
     return;
 }
+
+node *getNode
 
 int main(){
 
