@@ -39,6 +39,32 @@ class Hashtable{
         }
         return idx;
     }
+    // rehashfn
+    void rehash(){
+        Node<T>** oldTable = table;
+        int oldTableSize = table_size;
+        table_size = 2*table_size;
+        table = new Node<T>*[table_size];
+
+        for(int i=0;i<table_size;i++){
+            table[i] = NULL;
+        }
+
+        current_size = 0;
+
+        // shift the elements from old table to new table
+        for(int i=0;i<oldTableSize;i++){
+            Node<T>*temp = oldTable[i];
+            while(temp!=NULL){
+                insert(temp->key, temp->value);
+                temp = temp->next;
+            }
+            if(oldTable[i]!=NULL){
+                delete oldTable[i];
+            }
+        }
+        delete [] oldTable;
+    }
 
     public: 
         Hashtable(int ts = 7){
@@ -60,6 +86,11 @@ class Hashtable{
         current_size++;
 
         // rehash..
+
+        float lf = current_size/(1.0*table_size);
+        if(lf>0){
+            rehash();
+        }
     }
 
     void print(){
@@ -74,9 +105,18 @@ class Hashtable{
         }
     }
 
-    // T search(string key){
-    //     //..
-    // }
+    T* search(string key){
+        //..
+        int idx = hashFn(key);
+        Node<T>*temp = table[idx];
+        while(temp!=NULL){
+            if(temp->key==key){
+                return &temp->value;
+            }
+            temp = temp->next;
+        }
+        return NULL; // T*
+    }
 
     // void erase(string key){
 
@@ -94,6 +134,13 @@ int main(){
     price_menu.insert("Coke", 40);
 
     price_menu.print();
+
+    auto price = price_menu.search("Noodles");
+    if(*price==NULL){
+        cout<<"Not found!";
+    }else{
+        cout<<"Price is "<<*price<<endl;
+    }
 
     return 0;
 }
